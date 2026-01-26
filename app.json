@@ -41,13 +41,6 @@
           }
         }
       ],
-      [
-        "expo-gaode-map-navigation", 
-        {
-          "androidKey": "6ac64d1e0bd9d846494b94336fd5314a",
-          "iosKey": "35d8c526f9ecb7adf4989cd97eb2a4a6"
-        }
-      ],
       "./scripts/with-android-mirrors.js"
     ],
     "experiments": {
