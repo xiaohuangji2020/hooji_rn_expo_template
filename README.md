@@ -144,8 +144,8 @@ maven { url 'https://maven.aliyun.com/repository/public' }
 ```json
 {
   "expo": {
-    "name": "feng_admin_app",
-    "slug": "feng_admin_app",
+    "name": "hooji_rn_expo_template",
+    "slug": "hooji_rn_expo_template",
     "version": "1.0.0",
     "plugins": [
       "./scripts/with-android-mirrors.js"
