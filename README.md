@@ -140,7 +140,7 @@ maven { url 'https://maven.aliyun.com/repository/public' }
 
 ```
 ##### 2.2 自动方法
-使用 `./scripts/withAndroidMirrors.js`，会自动在上面的文件添加内容，调用方在下面(plugins中的)（已配置好）
+使用 `./scripts/with-android-mirrors.js`，会自动在上面的文件添加内容，调用方在下面(plugins中的)（已配置好）
 ```json
 {
   "expo": {
@@ -148,7 +148,7 @@ maven { url 'https://maven.aliyun.com/repository/public' }
     "slug": "feng_admin_app",
     "version": "1.0.0",
     "plugins": [
-      "./scripts/withAndroidMirrors.js"
+      "./scripts/with-android-mirrors.js"
     ]
   }
 }

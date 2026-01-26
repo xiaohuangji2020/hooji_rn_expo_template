@@ -41,7 +41,7 @@
           }
         }
       ],
-      "./scripts/withAndroidMirrors.js"
+      "./scripts/with-android-mirrors.js"
     ],
     "experiments": {
       "typedRoutes": true,
