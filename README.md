@@ -241,3 +241,22 @@ emulator -list-avds
 ```Bash
 emulator -avd Medium_Phone_API_36.1
 ```
+
+
+
+## 规范
+### 代码规范
+1. 组件、页面使用具名导出`export function Home()` 而不是 `export default function Home()`
+
+### 文件名规范规则
+1. 小写 (kebab-case/camelCase)：通常表示功能性文件。比如 api.ts（接口）、utils.ts（工具函数）、useAuth.ts（Hook）。
+2. 大写 (PascalCase)：表示它是一个 React 组件（Component）。
+3. 路由文件必须小写
+4. 推荐使用index.tsx作为中转站
+
+
+### Components 不止在 components/ 里
+在 React 开发中，我们通常把组件分为两类：
+公共组件 (`src/components/`)：比如 MyButton.tsx、CommonInput.tsx。这些是全项目通用的“零件”。
+页面组件 (`Screens/Views`)：比如 HomeView.tsx、LoginView.tsx。这些是特定页面的“主体”。
+只要它导出的主要内容是一个 React 组件（返回 JSX），它的文件名就应该首字母大写

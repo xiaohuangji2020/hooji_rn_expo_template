@@ -1,0 +1,18 @@
+{
+  "map": { "image": "/static/home/baojia.png", "text": "地图功能测试" },
+  "camera": { "image": "/static/home/baojia.png", "text": "相机功能测试" },
+  "bidding": { "image": "/static/home/baojia.png", "text": "报价管理" },
+  "delivery": { "image": "/static/home/chuche.png", "text": "出车计划" },
+  "clue": { "image": "/static/home/xiansuo.png", "text": "线索管理" },
+  "task": { "image": "/static/home/renwu.png", "text": "出车任务" },
+  "outTask": { "image": "/static/home/waiburenwu.png", "text": "外部任务" },
+  "customerTask": { "image": "/static/home/order.png", "text": "异常管理" },
+  "exception": { "image": "/static/home/yichang.png", "text": "客户任务" },
+  "approval": { "image": "/static/home/shenpi.png", "text": "审批管理" },
+  "deliveryApproval": { "image": "/static/home/yunli.png", "text": "运力审核" },
+  "otherFee": { "image": "/static/home/otherFee@3x.png", "text": "其他费用" },
+  "feederException": { "image": "/static/home/feederException.png", "text": "支线异常监控" },
+  "feederTask": { "image": "/static/home/feederList.png", "text": "GroundB任务" },
+  "shunluTask": { "image": "/static/home/feederList.png", "text": "顺陆B任务" },
+  "feederHandoverTask": { "image": "/static/home/feederHandOver.png", "text": "二程接驳任务" }
+}
