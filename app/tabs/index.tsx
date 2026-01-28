@@ -1,8 +1,8 @@
-import Button from '@/components/buttons/Button';
-import ImageViewer from '@/components/images/ImageViewer';
-import { StyleSheet, View } from 'react-native';
+import Button from "@/components/buttons/Button";
+import ImageViewer from "@/components/images/ImageViewer";
+import { StyleSheet, View } from "react-native";
 
-const PlaceholderImage = require('@/assets/images/background-image.png');
+const PlaceholderImage = require("@/assets/images/background-image.png");
 
 export default function Index() {
   return (
@@ -21,8 +21,8 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
+    backgroundColor: "#25292e",
+    alignItems: "center",
   },
   imageContainer: {
     flex: 1,
@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
   },
   footerContainer: {
     flex: 1 / 3,
-    alignItems: 'center',
+    alignItems: "center",
   },
 });

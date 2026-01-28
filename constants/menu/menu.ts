@@ -1,0 +1,18 @@
+export const MENU_CONFIG = {
+  map: { image: require("@/assets/images/home/baojia.png"), text: "地图功能测试" },
+  camera: { image: require("@/assets/images/home/baojia.png"), text: "相机功能测试" },
+  bidding: { image: require("@/assets/images/home/baojia.png"), text: "报价管理" },
+  delivery: { image: require("@/assets/images/home/chuche.png"), text: "出车计划" },
+  clue: { image: require("@/assets/images/home/xiansuo.png"), text: "线索管理" },
+  task: { image: require("@/assets/images/home/renwu.png"), text: "出车任务" },
+  outTask: { image: require("@/assets/images/home/waiburenwu.png"), text: "外部任务" },
+  customerTask: { image: require("@/assets/images/home/order.png"), text: "异常管理" },
+  exception: { image: require("@/assets/images/home/yichang.png"), text: "客户任务" },
+  approval: { image: require("@/assets/images/home/shenpi.png"), text: "审批管理" },
+  deliveryApproval: { image: require("@/assets/images/home/yunli.png"), text: "运力审核" },
+  otherFee: { image: require("@/assets/images/home/otherFee.png"), text: "其他费用" },
+  feederException: { image: require("@/assets/images/home/feederException.png"), text: "支线异常监控" },
+  feederTask: { image: require("@/assets/images/home/feederList.png"), text: "GroundB任务" },
+  shunluTask: { image: require("@/assets/images/home/feederList.png"), text: "顺陆B任务" },
+  feederHandoverTask: { image: require("@/assets/images/home/feederHandOver.png"), text: "二程接驳任务" },
+};

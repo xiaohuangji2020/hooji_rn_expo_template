@@ -1,31 +1,43 @@
-import menuList from '@/assets/json/menu.json';
-import ImageViewer from '@/components/images/ImageViewer';
-import { StyleSheet, View } from 'react-native';
+import { Typography } from "@/constants/css/Typography";
+import { MENU_CONFIG } from "@/constants/menu/menu";
+import { Image } from "expo-image";
+import { StyleSheet, Text, View } from "react-native";
 
 export function Menu() {
-  return (
-    menuList.map((menuItem, index) => (
-      <View key={index} style={styles.container}>
-        <ImageViewer imgSource={PlaceholderImage} />
-        <Text>{menuItem.title}</Text>
+  const menuList = Object.values(MENU_CONFIG);
 
-      </View>
-    ))
+  return (
+    <View style={styles.imageContainer}>
+      {menuList.map((menuItem, index) => (
+        <View key={index} style={styles.imageBox}>
+          <Image source={menuItem.image} style={styles.image} contentFit="contain" />
+          <Text style={styles.text}>{menuItem.text}</Text>
+        </View>
+      ))}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    alignItems: 'center',
-  },
   imageContainer: {
-    flex: 1,
-    paddingTop: 28,
+    display: "flex",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
-  footerContainer: {
-    flex: 1 / 3,
-    alignItems: 'center',
+  imageBox: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    width: "25%",
+    aspectRatio: 1.2,
+    paddingVertical: 10,
+  },
+  image: {
+    flex: 1,
+    width: "35%",
+  },
+  text: {
+    fontSize: Typography.info,
   },
 });

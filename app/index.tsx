@@ -1,8 +1,6 @@
-import { Home } from '@/app/home';
-import React from 'react';
+import { Home } from "@/app/home";
+import React from "react";
 
 export default function Index() {
-  return (
-    <Home />
-  );
+  return <Home />;
 }
