@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.hooji-rn-expo-template"
+      "bundleIdentifier": "com.anonymous.hooji-rn-expo-template",
     },
     "android": {
       "adaptiveIcon": {

@@ -7,7 +7,6 @@ const scale = SCREEN_WIDTH / 375; // 以 375 (iPhone 13/14) 为基准
 const normalize = (size: number) => {
   const newSize = size * scale;
   const res = Math.round(PixelRatio.roundToNearestPixel(newSize));
-  console.log(res);
   return res;
 };
 

@@ -1,8 +1,7 @@
-import { DrawerMenu } from "@/components/menu/DrawerMenu";
 import { Typography } from "@/constants/css/Typography";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
-import { Drawer } from "expo-router/drawer";
+import { Stack } from "expo-router";
 import { Pressable } from "react-native";
 
 export default function RootLayout() {
@@ -15,31 +14,24 @@ export default function RootLayout() {
   };
   return (
     <ThemeProvider value={MyTheme}>
-      <Drawer
-        drawerContent={() => <DrawerMenu />}
+      <Stack
         screenOptions={{
           headerStyle: {},
           headerTitleStyle: { fontSize: Typography.title },
           headerTitleAlign: "center",
-          headerRight: () => (
+          headerLeft: () => (
             <Pressable
               onPress={() => {
-                console.log("Menu button right pressed");
+                console.log("Menu button pressed");
               }}
             >
-              <Ionicons name="notifications-outline" size={24} style={{ marginRight: 15 }} />
+              <Ionicons name="close-circle-outline" size={24} color="black" style={{ marginLeft: 10 }} />
             </Pressable>
           ),
         }}
       >
-        <Drawer.Screen
-          name="index" // This is the name of the page and must match the url from root
-          options={{
-            drawerLabel: "Home",
-            title: "顺立通",
-          }}
-        />
-      </Drawer>
+        <Stack.Screen name="index" options={{ title: "顺立通" }} />
+      </Stack>
     </ThemeProvider>
   );
 }
