@@ -4,9 +4,7 @@ import Fontisto from "@expo/vector-icons/Fontisto";
 import { StyleSheet, Text, View } from "react-native";
 import { Menu } from "./Menu";
 
-
 export function DrawerMenu() {
-
   return (
     <View>
       <View style={styles.userBox}>
@@ -30,12 +28,12 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   userName: {
-    fontSize:Typography.title,
+    fontSize: Typography.title,
   },
   userPhone: {
-    fontSize:Typography.caption,
+    fontSize: Typography.caption,
     color: Color.info,
     paddingLeft: 35,
     paddingBottom: 20,
-  }
-})
+  },
+});

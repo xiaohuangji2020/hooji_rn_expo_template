@@ -1,6 +1,6 @@
-import { MapView, Marker } from 'expo-gaode-map-navigation';
-import React from 'react';
-import { View } from 'react-native';
+import { MapView, Marker } from "expo-gaode-map-navigation";
+import React from "react";
+import { View } from "react-native";
 
 export default function BasicMapScreen() {
   return (
@@ -12,10 +12,7 @@ export default function BasicMapScreen() {
           zoom: 15,
         }}
       >
-        <Marker
-          position={{ latitude: 39.909186, longitude: 116.397411 }}
-          title="天安门"
-        />
+        <Marker position={{ latitude: 39.909186, longitude: 116.397411 }} title="天安门" />
       </MapView>
     </View>
   );

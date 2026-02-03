@@ -1,8 +1,8 @@
 import { Camera } from "@/components/camera";
 import { useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export function ScanScreen() {
+export default function ScanScreen() {
   const [scannedData, setScannedData] = useState<{ type: string; data: string } | null>(null);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -57,9 +57,6 @@ export function ScanScreen() {
     </View>
   );
 }
-
-// 使用默认导出以符合 Expo Router 的要求
-export default ScanScreen;
 
 const styles = StyleSheet.create({
   container: {
