@@ -9,7 +9,7 @@ export function Menu({ columns = 4 }: { columns?: number }) {
   return (
     <View style={styles.imageContainer}>
       {menuList.map((menuItem, index) => (
-        <Link href="/" key={index} asChild style={[styles.imageBox, { width: columns === 4 ? "25%" : "33%" }]}>
+        <Link href="/scan" key={index} asChild style={[styles.imageBox, { width: columns === 4 ? "25%" : "33%" }]}>
           <Pressable>
             <Image source={menuItem.image} style={styles.image} contentFit="contain" />
             <Text style={styles.text}>{menuItem.text}</Text>

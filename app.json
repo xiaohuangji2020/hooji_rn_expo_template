@@ -48,6 +48,14 @@
           "iosKey": "35d8c526f9ecb7adf4989cd97eb2a4a6"
         }
       ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ],
       "./scripts/with-android-mirrors.js"
     ],
     "experiments": {
