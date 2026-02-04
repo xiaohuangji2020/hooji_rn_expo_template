@@ -107,7 +107,7 @@ export function MapSearch() {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={90} style={styles.container}>
       {/* 地图区域 - 占屏幕大半部分 */}
       <View style={styles.mapContainer}>
         <MapView
@@ -122,45 +122,43 @@ export function MapSearch() {
         </MapView>
       </View>
 
-      {/* 搜索栏区域 - 使用 KeyboardAvoidingView 避免被键盘遮挡 */}
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={0}>
-        <View style={styles.searchContainer}>
-          <View style={styles.searchBar}>
-            <TextInput
-              onChangeText={handleInputChange}
-              onSubmitEditing={() => handleSearch()}
-              placeholder="请输入地址或地点名称"
-              returnKeyType="search"
-              style={styles.input}
-              value={searchText}
-            />
-            <TouchableOpacity disabled={isSearching} onPress={() => handleSearch()} style={styles.searchButton}>
-              <Text style={styles.searchButtonText}>{isSearching ? "搜索中..." : "搜索"}</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* 搜索建议列表 */}
-          {showSuggestions && searchResults.length > 0 && (
-            <View style={styles.suggestionsContainer}>
-              <FlatList
-                data={searchResults.slice(0, 5)} // 只显示前5个建议
-                keyExtractor={(item, index) => item.id || `${index}`}
-                renderItem={({ item }) => (
-                  <Pressable onPress={() => handleSelectSuggestion(item)} style={styles.suggestionItem}>
-                    <Text style={styles.suggestionName}>{item.name}</Text>
-                    {item.address && <Text style={styles.suggestionAddress}>{item.address}</Text>}
-                  </Pressable>
-                )}
-                style={styles.suggestionsList}
-              />
-            </View>
-          )}
-
-          {/* 提示信息 */}
-          <Text style={styles.hint}>支持搜索全国各地的地点、商家、景点等</Text>
+      {/* 搜索栏区域 */}
+      <View style={styles.searchContainer}>
+        <View style={styles.searchBar}>
+          <TextInput
+            onChangeText={handleInputChange}
+            onSubmitEditing={() => handleSearch()}
+            placeholder="请输入地址或地点名称"
+            returnKeyType="search"
+            style={styles.input}
+            value={searchText}
+          />
+          <TouchableOpacity disabled={isSearching} onPress={() => handleSearch()} style={styles.searchButton}>
+            <Text style={styles.searchButtonText}>{isSearching ? "搜索中..." : "搜索"}</Text>
+          </TouchableOpacity>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+
+        {/* 搜索建议列表 */}
+        {showSuggestions && searchResults.length > 0 && (
+          <View style={styles.suggestionsContainer}>
+            <FlatList
+              data={searchResults.slice(0, 5)} // 只显示前5个建议
+              keyExtractor={(item, index) => item.id || `${index}`}
+              renderItem={({ item }) => (
+                <Pressable onPress={() => handleSelectSuggestion(item)} style={styles.suggestionItem}>
+                  <Text style={styles.suggestionName}>{item.name}</Text>
+                  {item.address && <Text style={styles.suggestionAddress}>{item.address}</Text>}
+                </Pressable>
+              )}
+              style={styles.suggestionsList}
+            />
+          </View>
+        )}
+
+        {/* 提示信息 */}
+        <Text style={styles.hint}>支持搜索全国各地的地点、商家、景点等</Text>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -189,8 +187,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mapContainer: {
-    flex: 1,
-    minHeight: "65%", // 地图占屏幕大半部分
+    flex: 1, // 地图占据可用空间，键盘弹起时会自动收缩
   },
   searchBar: {
     alignItems: "center",
