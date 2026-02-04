@@ -8,7 +8,7 @@ interface CameraProps {
   style?: ViewStyle;
 }
 
-export function Camera({ onBarcodeScanned, paused = false, style }: CameraProps) {
+export function ScanCamera({ onBarcodeScanned, paused = false, style }: CameraProps) {
   const [permission, requestPermission] = useCameraPermissions();
 
   if (!permission) return <View />; // 等待权限加载

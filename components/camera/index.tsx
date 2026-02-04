@@ -1,1 +1,3 @@
-export * from "./Camera";
+export { PhotoCamera } from "./PhotoCamera";
+export { ScanCamera } from "./ScanCamera";
+

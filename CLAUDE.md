@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Before Everything
+
+Please reply in Chinese at all times.
+
 ## Project Overview
 
 This is an Expo React Native project using file-based routing (expo-router) with TypeScript. The project is configured for local native builds rather than cloud builds, with special optimizations for development in China (Aliyun mirrors).

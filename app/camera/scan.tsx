@@ -1,4 +1,4 @@
-import { Camera } from "@/components/camera";
+import { ScanCamera } from "@/components/camera";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -26,7 +26,7 @@ export default function ScanScreen() {
     <View style={styles.container}>
       {/* 相机区域 - 占据大半部分屏幕 */}
       <View style={styles.cameraContainer}>
-        <Camera onBarcodeScanned={handleBarcodeScanned} paused={isPaused} style={styles.camera} />
+        <ScanCamera onBarcodeScanned={handleBarcodeScanned} paused={isPaused} style={styles.camera} />
       </View>
 
       {/* 扫描结果显示区域 */}
