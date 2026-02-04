@@ -1,7 +1,7 @@
-import { Menu } from "@/components/menu";
-import { Typography } from "@/constants/css/Typography";
 import { Image } from "expo-image";
 import { StyleSheet, Text, View } from "react-native";
+import { Menu } from "@/components/menu";
+import { Typography } from "@/constants/css/Typography";
 
 const bgImage = require("@/assets/images/home/bg.png");
 
@@ -10,7 +10,7 @@ export default function App() {
     <View>
       <View>
         <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
-          <Image source={bgImage} style={styles.image} contentFit="contain" />
+          <Image contentFit="contain" source={bgImage} style={styles.image} />
         </View>
         <View style={styles.userBox}>
           <View style={styles.userTextBox}>
@@ -28,21 +28,21 @@ export default function App() {
 
 const styles = StyleSheet.create({
   image: {
-    width: "100%",
     aspectRatio: 2.86,
+    width: "100%",
   },
   userBox: {
-    position: "absolute",
-    top: "25%",
     bottom: "25%",
     left: "10%",
-  },
-  userTextBox: {
-    flex: 1,
-    justifyContent: "center",
+    position: "absolute",
+    top: "25%",
   },
   userText: {
     color: "#FFFFFF",
     fontSize: Typography.title,
+  },
+  userTextBox: {
+    flex: 1,
+    justifyContent: "center",
   },
 });

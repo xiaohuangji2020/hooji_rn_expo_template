@@ -1,13 +1,7 @@
 import { MapView, Marker } from "expo-gaode-map-navigation";
-import React, { useState, useRef } from "react";
-import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
-
-interface SearchResult {
-  latitude: number;
-  longitude: number;
-  name: string;
-  address: string;
-}
+import { getInputTips, type InputTipsResult, type SearchResult as POISearchResult, searchPOI } from "expo-gaode-map-search";
+import React, { useRef, useState } from "react";
+import { Alert, FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export function MapSearch() {
   const [searchText, setSearchText] = useState("");
@@ -16,47 +10,100 @@ export function MapSearch() {
     longitude: 116.397411,
   });
   const [markerTitle, setMarkerTitle] = useState("天安门");
+  const [searchResults, setSearchResults] = useState<any[]>([]); // 兼容 InputTips 和 POI 类型
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   const mapRef = useRef(null);
 
-  // 模拟地址搜索（实际项目中应该调用高德地图 POI 搜索 API）
-  const handleSearch = async () => {
-    if (!searchText.trim()) {
-      Alert.alert("提示", "请输入搜索地址");
+  // 输入提示 - 实时获取搜索建议
+  const handleInputChange = async (text: string) => {
+    setSearchText(text);
+
+    if (!text.trim()) {
+      setShowSuggestions(false);
+      setSearchResults([]);
       return;
     }
 
     try {
-      // TODO: 集成高德地图 POI 搜索 API
-      // 这里是模拟数据，实际开发中需要调用 expo-gaode-map-navigation 的搜索功能
-      // 或者使用高德 Web Service API
+      // 调用高德地图输入提示 API
+      const result: InputTipsResult = await getInputTips({
+        city: "全国", // 可以改为具体城市，如 "北京"
+        keyword: text,
+      });
 
-      // 示例：简单的关键词匹配
-      const mockSearchResults: Record<string, SearchResult> = {
-        天安门: { latitude: 39.909186, longitude: 116.397411, name: "天安门", address: "北京市东城区天安门广场" },
-        故宫: { latitude: 39.916345, longitude: 116.397155, name: "故宫博物院", address: "北京市东城区景山前街4号" },
-        鸟巢: { latitude: 39.992889, longitude: 116.397528, name: "国家体育场（鸟巢）", address: "北京市朝阳区国家体育场南路1号" },
-        上海东方明珠: { latitude: 31.239889, longitude: 121.499763, name: "东方明珠", address: "上海市浦东新区世纪大道1号" },
-        广州塔: { latitude: 23.105925, longitude: 113.319233, name: "广州塔", address: "广东省广州市海珠区阅江西路222号" },
-      };
-
-      // 简单的模糊匹配
-      const foundKey = Object.keys(mockSearchResults).find((key) => searchText.includes(key) || key.includes(searchText));
-
-      if (foundKey) {
-        const result = mockSearchResults[foundKey];
-        setMarkerPosition({
-          latitude: result.latitude,
-          longitude: result.longitude,
-        });
-        setMarkerTitle(result.name);
-        Alert.alert("搜索成功", `已找到：${result.name}\n${result.address}`);
+      if (result.tips && result.tips.length > 0) {
+        setSearchResults(result.tips);
+        setShowSuggestions(true);
       } else {
-        Alert.alert("未找到结果", "请尝试搜索：天安门、故宫、鸟巢、上海东方明珠、广州塔等");
+        setSearchResults([]);
+        setShowSuggestions(false);
       }
     } catch (error) {
-      Alert.alert("搜索失败", "请稍后重试");
-      console.error("搜索错误:", error);
+      console.error("获取输入提示失败:", error);
+      setShowSuggestions(false);
     }
+  };
+
+  // 执行搜索 - 调用真实的高德地图 POI 搜索 API
+  const handleSearch = async (keyword?: string) => {
+    const searchKeyword = keyword || searchText;
+
+    if (!searchKeyword.trim()) {
+      Alert.alert("提示", "请输入搜索地址");
+      return;
+    }
+
+    setIsSearching(true);
+    setShowSuggestions(false);
+
+    try {
+      // 调用高德地图 POI 搜索 API
+      const result: POISearchResult = await searchPOI({
+        keyword: searchKeyword,
+        // city: "北京", // 可选：指定搜索城市
+        pageNum: 1, // 页码
+        pageSize: 20, // 每页结果数
+      });
+
+      if (result.pois && result.pois.length > 0) {
+        const firstPOI = result.pois[0];
+
+        // 更新地图标记位置
+        setMarkerPosition({
+          latitude: firstPOI.location.latitude,
+          longitude: firstPOI.location.longitude,
+        });
+        setMarkerTitle(firstPOI.name);
+
+        // 显示搜索结果列表
+        setSearchResults(result.pois);
+        setShowSuggestions(true);
+
+        Alert.alert("搜索成功", `找到 ${result.total} 个结果\n\n${firstPOI.name}\n${firstPOI.address || "暂无地址信息"}`);
+      } else {
+        Alert.alert("未找到结果", "请尝试其他关键词");
+        setSearchResults([]);
+      }
+    } catch (error) {
+      Alert.alert("搜索失败", "请检查网络连接或稍后重试");
+      console.error("POI 搜索错误:", error);
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  // 选择搜索建议项
+  const handleSelectSuggestion = (poi: any) => {
+    setSearchText(poi.name);
+    setShowSuggestions(false);
+
+    // 更新地图标记
+    setMarkerPosition({
+      latitude: poi.location.latitude,
+      longitude: poi.location.longitude,
+    });
+    setMarkerTitle(poi.name);
   };
 
   return (
@@ -64,98 +111,144 @@ export function MapSearch() {
       {/* 地图区域 - 占屏幕大半部分 */}
       <View style={styles.mapContainer}>
         <MapView
-          ref={mapRef}
-          style={styles.map}
           initialCameraPosition={{
             target: markerPosition,
             zoom: 15,
           }}
+          ref={mapRef}
+          style={styles.map}
         >
           <Marker position={markerPosition} title={markerTitle} />
         </MapView>
       </View>
 
-      {/* 搜索栏区域 */}
-      <View style={styles.searchContainer}>
-        <View style={styles.searchBar}>
-          <TextInput
-            style={styles.input}
-            placeholder="请输入地址或地点名称"
-            value={searchText}
-            onChangeText={setSearchText}
-            onSubmitEditing={handleSearch}
-            returnKeyType="search"
-          />
-          <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-            <Text style={styles.searchButtonText}>搜索</Text>
-          </TouchableOpacity>
-        </View>
+      {/* 搜索栏区域 - 使用 KeyboardAvoidingView 避免被键盘遮挡 */}
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={0}>
+        <View style={styles.searchContainer}>
+          <View style={styles.searchBar}>
+            <TextInput
+              onChangeText={handleInputChange}
+              onSubmitEditing={() => handleSearch()}
+              placeholder="请输入地址或地点名称"
+              returnKeyType="search"
+              style={styles.input}
+              value={searchText}
+            />
+            <TouchableOpacity disabled={isSearching} onPress={() => handleSearch()} style={styles.searchButton}>
+              <Text style={styles.searchButtonText}>{isSearching ? "搜索中..." : "搜索"}</Text>
+            </TouchableOpacity>
+          </View>
 
-        {/* 提示信息 */}
-        <Text style={styles.hint}>试试搜索：天安门、故宫、鸟巢、上海东方明珠、广州塔</Text>
-      </View>
+          {/* 搜索建议列表 */}
+          {showSuggestions && searchResults.length > 0 && (
+            <View style={styles.suggestionsContainer}>
+              <FlatList
+                data={searchResults.slice(0, 5)} // 只显示前5个建议
+                keyExtractor={(item, index) => item.id || `${index}`}
+                renderItem={({ item }) => (
+                  <Pressable onPress={() => handleSelectSuggestion(item)} style={styles.suggestionItem}>
+                    <Text style={styles.suggestionName}>{item.name}</Text>
+                    {item.address && <Text style={styles.suggestionAddress}>{item.address}</Text>}
+                  </Pressable>
+                )}
+                style={styles.suggestionsList}
+              />
+            </View>
+          )}
+
+          {/* 提示信息 */}
+          <Text style={styles.hint}>支持搜索全国各地的地点、商家、景点等</Text>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
+    flex: 1,
+  },
+  hint: {
+    color: "#999",
+    fontSize: 12,
+    marginTop: 12,
+    textAlign: "center",
+  },
+  input: {
+    backgroundColor: "#f8f8f8",
+    borderColor: "#d0d0d0",
+    borderRadius: 8,
+    borderWidth: 1,
+    flex: 1,
+    fontSize: 16,
+    height: 48,
+    paddingHorizontal: 16,
+  },
+  map: {
+    flex: 1,
   },
   mapContainer: {
     flex: 1,
     minHeight: "65%", // 地图占屏幕大半部分
   },
-  map: {
-    flex: 1,
-  },
-  searchContainer: {
-    padding: 16,
-    backgroundColor: "#fff",
-    borderTopWidth: 1,
-    borderTopColor: "#e0e0e0",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: -2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 5,
-  },
   searchBar: {
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
     gap: 12,
   },
-  input: {
-    flex: 1,
-    height: 48,
-    borderWidth: 1,
-    borderColor: "#d0d0d0",
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    fontSize: 16,
-    backgroundColor: "#f8f8f8",
-  },
   searchButton: {
-    height: 48,
-    paddingHorizontal: 24,
+    alignItems: "center",
     backgroundColor: "#1890ff",
     borderRadius: 8,
+    height: 48,
     justifyContent: "center",
-    alignItems: "center",
+    paddingHorizontal: 24,
   },
   searchButtonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
   },
-  hint: {
+  searchContainer: {
+    backgroundColor: "#fff",
+    borderTopColor: "#e0e0e0",
+    borderTopWidth: 1,
+    elevation: 5,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      height: -2,
+      width: 0,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  },
+  // 新增：搜索建议样式
+  suggestionAddress: {
+    color: "#666",
+    fontSize: 13,
+  },
+  suggestionItem: {
+    borderBottomColor: "#f0f0f0",
+    borderBottomWidth: 1,
+    padding: 12,
+  },
+  suggestionName: {
+    color: "#333",
+    fontSize: 15,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  suggestionsContainer: {
+    backgroundColor: "#fff",
+    borderColor: "#e0e0e0",
+    borderRadius: 8,
+    borderWidth: 1,
     marginTop: 12,
-    fontSize: 12,
-    color: "#999",
-    textAlign: "center",
+    maxHeight: 200,
+  },
+  suggestionsList: {
+    flexGrow: 0,
   },
 });

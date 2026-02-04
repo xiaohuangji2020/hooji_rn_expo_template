@@ -1,7 +1,9 @@
-import { Color } from "@/constants/css/Color";
-import { Typography } from "@/constants/css/Typography";
 import Fontisto from "@expo/vector-icons/Fontisto";
 import { StyleSheet, Text, View } from "react-native";
+
+import { Color } from "@/constants/css/Color";
+import { Typography } from "@/constants/css/Typography";
+
 import { Menu } from "./Menu";
 
 export function DrawerMenu() {
@@ -19,21 +21,21 @@ export function DrawerMenu() {
 
 const styles = StyleSheet.create({
   userBox: {
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
     justifyContent: "space-between",
+    marginBottom: 15,
+    marginTop: 50,
     paddingLeft: 35,
     paddingRight: 28,
-    marginTop: 50,
-    marginBottom: 15,
   },
   userName: {
     fontSize: Typography.title,
   },
   userPhone: {
-    fontSize: Typography.caption,
     color: Color.info,
-    paddingLeft: 35,
+    fontSize: Typography.caption,
     paddingBottom: 20,
+    paddingLeft: 35,
   },
 });

@@ -1,5 +1,6 @@
-import { MapSearch } from "@/components/map/MapSearch";
 import React from "react";
+
+import { MapSearch } from "@/components/map/MapSearch";
 
 export default function MapPage() {
   return <MapSearch />;

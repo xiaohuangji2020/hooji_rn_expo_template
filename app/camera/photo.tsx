@@ -1,5 +1,6 @@
-import { PhotoCamera } from "@/components/camera";
 import { StyleSheet, View } from "react-native";
+
+import { PhotoCamera } from "@/components/camera";
 
 export default function PhotoScreen() {
   const handlePhotoTaken = (uri: string) => {
@@ -16,11 +17,11 @@ export default function PhotoScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-  },
   camera: {
+    flex: 1,
+  },
+  container: {
+    backgroundColor: "#000",
     flex: 1,
   },
 });

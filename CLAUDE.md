@@ -57,12 +57,25 @@ npm run web
 ### Code Quality
 
 ```bash
-# Run linter
+# Run linter (检查代码规范)
 npm run lint
+
+# Auto-fix linting issues (自动修复可修复的问题)
+npm run lint:fix
 
 # Format code (Prettier with 160 char line width)
 npx prettier --write .
 ```
+
+**代码规范工具:**
+
+项目使用 **ESLint** 来保持代码风格一致:
+
+- 🔄 **样式属性排序**: StyleSheet 属性按字母顺序自动排序
+- ✅ **禁止未使用的样式**: 检测并报错未使用的样式定义
+- ✨ **格式化**: 自动格式化对象间距、逗号等
+
+大部分问题可以通过 `npm run lint:fix` 自动修复。详见 `docs/STYLE_LINT.md`。
 
 ### Native Directory Management
 

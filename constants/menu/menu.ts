@@ -1,5 +1,5 @@
 export const MENU_CONFIG = {
-  // map: { image: require("@/assets/images/home/baojia.png"), text: "地图功能测试", link: "/map" },
+  map: { image: require("@/assets/images/home/baojia.png"), text: "地图功能测试", link: "/map/search" },
   camera: { image: require("@/assets/images/home/baojia.png"), text: "扫码", link: "/camera/scan" },
   photo: { image: require("@/assets/images/home/chuche.png"), text: "拍照", link: "/camera/photo" },
   // bidding: { image: require("@/assets/images/home/baojia.png"), text: "报价管理", link: "/bidding" },

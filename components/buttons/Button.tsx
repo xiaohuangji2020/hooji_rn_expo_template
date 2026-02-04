@@ -1,31 +1,25 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 type Props = {
   label: string;
-  theme?: 'primary';
+  theme?: "primary";
 };
 
 export default function Button({ label, theme }: Props) {
-  if (theme === 'primary') {
+  if (theme === "primary") {
     return (
-      <View
-        style={[
-          styles.buttonContainer,
-          { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
-        ]}>
-        <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
-          onPress={() => alert('You pressed a button.')}>
-          <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon} />
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
+      <View style={[styles.buttonContainer, { borderColor: "#ffd33d", borderRadius: 18, borderWidth: 4 }]}>
+        <Pressable onPress={() => alert("You pressed a button.")} style={[styles.button, { backgroundColor: "#fff" }]}>
+          <FontAwesome color="#25292e" name="picture-o" size={18} style={styles.buttonIcon} />
+          <Text style={[styles.buttonLabel, { color: "#25292e" }]}>{label}</Text>
         </Pressable>
       </View>
     );
   }
   return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+      <Pressable onPress={() => alert("You pressed a button.")} style={styles.button}>
         <Text style={styles.buttonLabel}>{label}</Text>
       </Pressable>
     </View>
@@ -33,27 +27,27 @@ export default function Button({ label, theme }: Props) {
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    width: 320,
-    height: 68,
-    marginHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 3,
-  },
   button: {
+    alignItems: "center",
     borderRadius: 10,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    flexDirection: "row",
+    height: "100%",
+    justifyContent: "center",
+    width: "100%",
+  },
+  buttonContainer: {
+    alignItems: "center",
+    height: 68,
+    justifyContent: "center",
+    marginHorizontal: 20,
+    padding: 3,
+    width: 320,
   },
   buttonIcon: {
     paddingRight: 8,
   },
   buttonLabel: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
   },
 });

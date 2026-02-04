@@ -1,6 +1,7 @@
-import { ScanCamera } from "@/components/camera";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+
+import { ScanCamera } from "@/components/camera";
 
 export default function ScanScreen() {
   const [scannedData, setScannedData] = useState<{ type: string; data: string } | null>(null);
@@ -35,7 +36,7 @@ export default function ScanScreen() {
           <View style={styles.resultContent}>
             <Text style={styles.resultTitle}>扫描结果：</Text>
             <Text style={styles.resultType}>类型: {scannedData.type}</Text>
-            <Text style={styles.resultData} numberOfLines={3} ellipsizeMode="tail">
+            <Text ellipsizeMode="tail" numberOfLines={3} style={styles.resultData}>
               内容: {scannedData.data}
             </Text>
           </View>
@@ -47,9 +48,9 @@ export default function ScanScreen() {
       {/* 重新扫描按钮 */}
       <View style={styles.buttonContainer}>
         <Pressable
-          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed, !scannedData && styles.buttonDisabled]}
-          onPress={handleRescan}
           disabled={!scannedData}
+          onPress={handleRescan}
+          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed, !scannedData && styles.buttonDisabled]}
         >
           <Text style={[styles.buttonText, !scannedData && styles.buttonTextDisabled]}>重新扫描</Text>
         </Pressable>
@@ -59,61 +60,22 @@ export default function ScanScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  cameraContainer: {
-    flex: 7, // 占据大部分屏幕
-    backgroundColor: "#000",
-  },
-  camera: {
-    flex: 1,
-  },
-  resultContainer: {
-    flex: 2,
-    padding: 20,
-    justifyContent: "center",
-    backgroundColor: "#f5f5f5",
-  },
-  resultContent: {
-    gap: 8,
-  },
-  resultTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  resultType: {
-    fontSize: 14,
-    color: "#666",
-  },
-  resultData: {
-    fontSize: 16,
-    color: "#000",
-    marginTop: 4,
-  },
-  waitingText: {
-    fontSize: 16,
-    color: "#999",
-    textAlign: "center",
+  button: {
+    alignItems: "center",
+    backgroundColor: "#007AFF",
+    borderRadius: 8,
+    paddingVertical: 16,
   },
   buttonContainer: {
+    backgroundColor: "#fff",
     padding: 20,
     paddingBottom: 30,
-    backgroundColor: "#fff",
-  },
-  button: {
-    backgroundColor: "#007AFF",
-    paddingVertical: 16,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  buttonPressed: {
-    backgroundColor: "#0056b3",
   },
   buttonDisabled: {
     backgroundColor: "#ccc",
+  },
+  buttonPressed: {
+    backgroundColor: "#0056b3",
   },
   buttonText: {
     color: "#fff",
@@ -122,5 +84,44 @@ const styles = StyleSheet.create({
   },
   buttonTextDisabled: {
     color: "#999",
+  },
+  camera: {
+    flex: 1,
+  },
+  cameraContainer: {
+    backgroundColor: "#000",
+    flex: 7, // 占据大部分屏幕
+  },
+  container: {
+    backgroundColor: "#fff",
+    flex: 1,
+  },
+  resultContainer: {
+    backgroundColor: "#f5f5f5",
+    flex: 2,
+    justifyContent: "center",
+    padding: 20,
+  },
+  resultContent: {
+    gap: 8,
+  },
+  resultData: {
+    color: "#000",
+    fontSize: 16,
+    marginTop: 4,
+  },
+  resultTitle: {
+    color: "#333",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  resultType: {
+    color: "#666",
+    fontSize: 14,
+  },
+  waitingText: {
+    color: "#999",
+    fontSize: 16,
+    textAlign: "center",
   },
 });
