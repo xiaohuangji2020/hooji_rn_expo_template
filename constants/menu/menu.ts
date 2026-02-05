@@ -1,5 +1,7 @@
 export const MENU_CONFIG = {
-  map: { image: require("@/assets/images/home/baojia.png"), text: "地图功能测试", link: "/map/search" },
+  home: { image: require("@/assets/images/home/xiansuo.png"), text: "首页", link: "/" },
+  mapSearch: { image: require("@/assets/images/home/baojia.png"), text: "地图搜索", link: "/map/search" },
+  MapNavigation: { image: require("@/assets/images/home/renwu.png"), text: "地图导航", link: "/map/navigation" },
   camera: { image: require("@/assets/images/home/baojia.png"), text: "扫码", link: "/camera/scan" },
   photo: { image: require("@/assets/images/home/chuche.png"), text: "拍照", link: "/camera/photo" },
   // bidding: { image: require("@/assets/images/home/baojia.png"), text: "报价管理", link: "/bidding" },

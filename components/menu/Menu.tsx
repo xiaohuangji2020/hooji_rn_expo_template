@@ -5,8 +5,16 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Typography } from "@/constants/css/Typography";
 import { MENU_CONFIG } from "@/constants/menu/menu";
 
-export function Menu({ columns = 4 }: { columns?: number }) {
-  const menuList = Object.values(MENU_CONFIG);
+interface MenuProps {
+  columns?: number;
+  showHome?: boolean;
+}
+
+export function Menu({ columns = 4, showHome = false }: MenuProps) {
+  const menuList = Object.entries(MENU_CONFIG)
+    .filter(([key]) => showHome || key !== "home")
+    .map(([, value]) => value);
+
   return (
     <View style={styles.imageContainer}>
       {menuList.map((menuItem, index) => (
@@ -38,7 +46,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
   },
   text: {
     fontSize: Typography.info,

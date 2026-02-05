@@ -1,11 +1,2 @@
-import Map from "./Map";
-import NavMap from "./NavMap";
-
+export { MapNavigation } from "./MapNavigation";
 export { MapSearch } from "./MapSearch";
-
-export default function MapComponent({ type }: { type?: string }) {
-  if (type === "nav") {
-    return <NavMap />;
-  }
-  return <Map />;
-}

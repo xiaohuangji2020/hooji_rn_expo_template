@@ -14,7 +14,7 @@ export function DrawerMenu() {
         <Fontisto name="email" size={24} style={{ marginRight: 15 }} />
       </View>
       <Text style={styles.userPhone}>14012345678</Text>
-      <Menu columns={3} />
+      <Menu columns={3} showHome={true} />
     </View>
   );
 }
