@@ -1,7 +1,7 @@
 import { Map, type MapLocation } from "@/components/map/Map";
 import { getInputTips, type InputTipsResult, type SearchResult as POISearchResult, searchPOI } from "expo-gaode-map-search";
 import React, { useState } from "react";
-import { Alert, FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Dimensions, FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 /**
  * 地图搜索页面
@@ -183,6 +183,8 @@ export default function MapSearchPage() {
   );
 }
 
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
@@ -316,7 +318,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     marginTop: 12,
-    maxHeight: "50%", // 最多半个屏幕高度
+    maxHeight: SCREEN_HEIGHT * 0.5, // 明确设置为屏幕高度的 50%
   },
   suggestionsList: {
     flexGrow: 0,

@@ -116,7 +116,7 @@ cd my-project
 
 ## 第三阶段：Expo 本地工作流（核心步骤）
 
-为了不依赖云打包，你们需要使用 **Dev Client** 模式。
+为了不依赖云打包，需要使用 **Dev Client** 模式。
 
 ### 1. 生成原生目录 (Prebuild)
 
